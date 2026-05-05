@@ -201,7 +201,7 @@ The cloned Scaler Academy website includes:
 
 > A 2-3 minute YouTube demo showing the CLI agent running live and the final output opening in the browser.
 >
-> **[Watch the Demo →](YOUR_YOUTUBE_LINK)**
+> **[Watch the Demo →](https://youtu.be/OMpFaIxf8e4)**
 
 ---
 
