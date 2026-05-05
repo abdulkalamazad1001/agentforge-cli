@@ -390,7 +390,7 @@ LLMs sometimes return malformed JSON. Our 4-strategy parser handles it all:
 
 <div align="center">
 
-[![Watch the Demo](https://img.shields.io/badge/▶_Watch_Full_Demo_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=282828)](https://youtu.be/OMpFaIxf8e4)
+[![Watch the Demo](https://img.shields.io/badge/▶_Watch_Full_Demo_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=282828)](https://youtu.be/PbHSliZI4iQ)
 
 *2-3 minute walkthrough showing the agent running live and the generated website*
 
