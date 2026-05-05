@@ -371,19 +371,6 @@ Attempt 6+ → Wait 30s  [██████░░░░]  (capped)
 
 </details>
 
-<details>
-<summary><b>🧠 JSON Recovery Parser</b> — Click to expand</summary>
-<br/>
-
-LLMs sometimes return malformed JSON. Our 4-strategy parser handles it all:
-
-1. **Direct parse** — Try `JSON.parse()` first
-2. **Code block extraction** — Strip ````json` wrappers
-3. **Regex extraction** — Find `{...}` blocks in mixed text
-4. **Auto-fix** — Remove trailing commas, fix quote types
-
-</details>
-
 ---
 
 ## 🎬 Demo
