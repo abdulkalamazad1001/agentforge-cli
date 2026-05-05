@@ -1,19 +1,21 @@
 /**
  * index.js — Main Entry Point for AgentForge CLI
  * 
+ * Copyright (c) 2026 Abdul Kalam Azad. All rights reserved.
+ * 
  * This is the core agent loop that:
- * Supports both Google Gemini (free) and OpenAI as AI providers.
- * 1. Shows a beautiful welcome banner
+ * 1. Shows a beautiful welcome banner with system info
  * 2. Accepts user input via readline
- * 3. Sends messages to GPT-4.1-mini with the system prompt
+ * 3. Sends messages to Gemini with the system prompt
  * 4. Parses JSON responses and runs the reasoning loop:
  *    START → THINK → TOOL → OBSERVE → OUTPUT
- * 5. Displays each step with colors, spinners, and formatting
- * 6. Loops until the agent produces an OUTPUT step
+ * 5. Displays each step with colors, spinners, step counters
+ * 6. Shows session summary with stats after completion
  * 7. After OUTPUT, asks for more instructions (persistent chat)
  * 
- * @author Abdul
- * @version 1.0.0
+ * @author Abdul Kalam Azad
+ * @project AgentForge CLI — Built by Abdul Kalam Azad for Scaler Academy
+ * @version 2.0.0
  */
 
 import "dotenv/config";
@@ -29,6 +31,8 @@ import { SYSTEM_PROMPT } from "./prompts.js";
 import { executeTool } from "./tools.js";
 import {
   showWelcomeBanner,
+  displaySystemInfo,
+  displayHelp,
   showPrompt,
   displayStart,
   displayThink,
@@ -36,14 +40,20 @@ import {
   displayToolResult,
   displayObserve,
   displayOutput,
+  displaySessionSummary,
   displayError,
+  displayRetryProgress,
   startSpinner,
   stopSpinner,
   showSeparator,
   showGoodbye,
 } from "./ui.js";
 
-// ─── AI Client Setup (Google Gemini) ────────────────────────────────────────
+// ─── Configuration ───────────────────────────────────────────────────────────
+
+const MODEL_NAME = "gemini-3.1-flash-lite-preview";
+
+// ─── AI Client Setup (Google Gemini) — Abdul Kalam Azad ─────────────────────
 
 const keysString = process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY;
 if (!keysString) {
@@ -58,7 +68,7 @@ let currentKeyIndex = 0;
 // Maintain global history independently so it persists across API key rotations
 let globalHistory = [];
 
-// ─── Readline Interface Setup ────────────────────────────────────────────────
+// ─── Readline Interface — Abdul Kalam Azad ──────────────────────────────────
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -77,7 +87,7 @@ function askUser() {
   });
 }
 
-// ─── JSON Parsing with Recovery ──────────────────────────────────────────────
+// ─── JSON Parsing with Recovery — Abdul Kalam Azad ──────────────────────────
 
 /**
  * Parse a JSON response from the LLM with error recovery.
@@ -134,7 +144,7 @@ function parseAgentResponse(content) {
   return null;
 }
 
-// ─── Main Agent Loop ─────────────────────────────────────────────────────────
+// ─── Main Agent Loop — Designed by Abdul Kalam Azad ─────────────────────────
 
 /**
  * Process a single user request through the agent loop.
@@ -152,8 +162,17 @@ async function processRequest(userInput) {
   const MAX_ITERATIONS = 30; // Safety limit to prevent infinite loops
   let iteration = 0;
 
+  // ── Session Stats Tracking ──
+  const sessionStats = {
+    startTime: Date.now(),
+    stepCount: 0,
+    keysUsed: 0,
+    filesCreated: [],
+  };
+
   while (iteration < MAX_ITERATIONS) {
     iteration++;
+    sessionStats.stepCount = iteration;
 
     // Show loading spinner while waiting for AI response
     const spinner = startSpinner("Agent is thinking...");
@@ -168,16 +187,15 @@ async function processRequest(userInput) {
       try {
         // --- ROUND ROBIN KEY SELECTION ---
         const activeKey = apiKeys[currentKeyIndex];
-        const keyLabel = `API Key ${currentKeyIndex + 1}/${apiKeys.length}`;
         currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
 
         stopSpinner();
-        startSpinner(`Agent is thinking... (${keyLabel})`);
+        startSpinner(`Agent is thinking...`);
 
         // Instantiate AI client with the selected key
         const genAI = new GoogleGenerativeAI(activeKey, { customFetch: fetch });
         const model = genAI.getGenerativeModel({
-          model: "gemini-3.1-flash-lite-preview",
+          model: MODEL_NAME,
           systemInstruction: SYSTEM_PROMPT
         });
 
@@ -197,6 +215,7 @@ async function processRequest(userInput) {
         globalHistory.push({ role: "user", parts: [{ text: currentInput }] });
         globalHistory.push({ role: "model", parts: [{ text: response.text() }] });
 
+        sessionStats.keysUsed++;
         break; // ✅ Success — exit retry loop
       } catch (err) {
         const isRateLimit = err.message.includes("429") || err.message.includes("quota") || err.message.includes("RESOURCE_EXHAUSTED");
@@ -212,7 +231,7 @@ async function processRequest(userInput) {
           // Exponential backoff: 5s, 10s, 15s, 20s... capped at 30s
           const waitSec = Math.min(attempt * 5, 30);
           stopSpinner();
-          startSpinner(`⏳ Rate limited. Auto-retrying in ${waitSec}s... (attempt ${attempt}/${MAX_RETRIES})`);
+          startSpinner(displayRetryProgress(attempt, MAX_RETRIES, waitSec));
           await new Promise((r) => setTimeout(r, waitSec * 1000));
           continue;
         }
@@ -260,12 +279,12 @@ async function processRequest(userInput) {
     // ── Handle each step type ──
 
     if (parsed.step === "START") {
-      displayStart(parsed.content);
+      displayStart(parsed.content, iteration);
       currentInput = "Proceed to the next step.";
     }
 
     else if (parsed.step === "THINK") {
-      displayThink(parsed.content);
+      displayThink(parsed.content, iteration);
       currentInput = "Proceed to the next step.";
     }
 
@@ -273,12 +292,21 @@ async function processRequest(userInput) {
       const toolName = parsed.tool_name;
       const toolArgs = parsed.tool_args;
 
-      displayToolCall(toolName, toolArgs);
+      displayToolCall(toolName, toolArgs, iteration);
 
       // Execute the tool
       const spinner2 = startSpinner(`Running ${toolName}...`);
       const result = await executeTool(toolName, toolArgs);
       stopSpinner();
+
+      // Track files created for session summary
+      if (toolName === "createFile" && !result.startsWith("Error")) {
+        const sizeMatch = result.match(/\(([^)]+)\)/);
+        sessionStats.filesCreated.push({
+          path: toolArgs.filePath || toolArgs.file_path || "unknown",
+          size: sizeMatch ? sizeMatch[1] : "unknown",
+        });
+      }
 
       // Determine success/failure from result
       const isSuccess = !result.startsWith("Error");
@@ -295,6 +323,7 @@ async function processRequest(userInput) {
 
     else if (parsed.step === "OUTPUT") {
       displayOutput(parsed.content);
+      displaySessionSummary(sessionStats);
       return; // Task complete — exit the loop
     }
 
@@ -322,21 +351,35 @@ async function main() {
   // Show the beautiful welcome banner
   showWelcomeBanner();
 
+  // Show system info bar
+  displaySystemInfo(MODEL_NAME, apiKeys.length);
+
   // Interactive chat loop
   while (true) {
     const userInput = await askUser();
 
-    // Handle exit commands
+    // Handle empty input
     if (!userInput) continue;
 
-    if (
-      userInput.toLowerCase() === "exit" ||
-      userInput.toLowerCase() === "quit" ||
-      userInput.toLowerCase() === "q"
-    ) {
+    // Handle exit commands
+    if (["exit", "quit", "q"].includes(userInput.toLowerCase())) {
       showGoodbye();
       rl.close();
       process.exit(0);
+    }
+
+    // Handle help command
+    if (userInput.toLowerCase() === "help") {
+      displayHelp();
+      continue;
+    }
+
+    // Handle clear command
+    if (userInput.toLowerCase() === "clear") {
+      console.clear();
+      showWelcomeBanner();
+      displaySystemInfo(MODEL_NAME, apiKeys.length);
+      continue;
     }
 
     // Process the user's request through the agent loop

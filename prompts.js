@@ -1,12 +1,17 @@
 /**
  * prompts.js — System Prompt and AI Configuration for AgentForge
  * 
+ * Copyright (c) 2026 Abdul Kalam Azad. All rights reserved.
+ * 
  * Contains the carefully crafted system prompt that defines:
  * - The agent's role and behavior
  * - Available tools and their usage
  * - The step-by-step reasoning format (START → THINK → TOOL → OBSERVE → OUTPUT)
  * - Detailed knowledge about the Scaler Academy website design
  * - Rules for producing high-quality output
+ * 
+ * @author Abdul Kalam Azad
+ * @project AgentForge CLI
  */
 
 import { toolDescriptions } from "./tools.js";

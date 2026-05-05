@@ -1,6 +1,8 @@
 /**
  * tools.js — Tool Definitions and Implementations for AgentForge
  * 
+ * Copyright (c) 2026 Abdul Kalam Azad. All rights reserved.
+ * 
  * Provides safe, file-operation tools that the AI agent can call:
  * - createFile: Creates a file with given content
  * - createDirectory: Creates a directory (with nested support)
@@ -8,13 +10,16 @@
  * 
  * Each tool returns a result string that gets fed back to the agent
  * as an OBSERVE step.
+ * 
+ * @author Abdul Kalam Azad
+ * @project AgentForge CLI
  */
 
 import { writeFileSync, mkdirSync, existsSync, statSync } from "fs";
 import { exec } from "child_process";
 import { resolve, dirname } from "path";
 
-// ─── Tool Registry ──────────────────────────────────────────────────────────
+// ─── Tool Registry — Abdul Kalam Azad ───────────────────────────────────────
 
 /**
  * Map of tool names to their handler functions.
@@ -53,7 +58,7 @@ export const toolDescriptions = `
      - Returns confirmation message
 `;
 
-// ─── Tool Implementations ───────────────────────────────────────────────────
+// ─── Tool Implementations — Abdul Kalam Azad ─────────────────────────────────
 
 /**
  * Creates a file with the given content.
