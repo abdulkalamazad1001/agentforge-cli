@@ -410,8 +410,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 **Built with ❤️ by Abdul Kalam Azad**
 
-*For Scaler Academy — GenAI Assignment*
-
 <br/>
 
 [![GitHub](https://img.shields.io/badge/Abdul_Kalam_Azad-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/abdulkalamazad1001)
