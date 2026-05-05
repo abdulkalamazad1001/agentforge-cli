@@ -1,216 +1,423 @@
-# 🤖 AgentForge CLI
+<div align="center">
 
-> **An AI-powered conversational CLI agent that clones the Scaler Academy website through intelligent multi-step reasoning.**
+<!-- Animated Header -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,50:3B82F6,100:06B6D4&height=220&section=header&text=AgentForge%20CLI&fontSize=65&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=AI-Powered%20Autonomous%20Web%20Development%20Agent&descSize=18&descAlignY=55" width="100%" />
 
-Built as an Assignment for **Scaler Academy** — demonstrating how AI agents can think, plan, and build real websites step by step.
+<br/>
 
-**Powered by Abdul Kalam**
+<!-- Typing Animation -->
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=6C63FF&center=true&vCenter=true&multiline=true&repeat=true&width=600&height=80&lines=Type+a+prompt.+Watch+it+think.+Get+a+website.;Built+with+%E2%9D%A4%EF%B8%8F+by+Abdul+Kalam+Azad" alt="Typing SVG" /></a>
 
----
+<br/><br/>
 
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-3.1_Flash_Lite-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+<!-- Badges Row 1 -->
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![Gemini](https://img.shields.io/badge/Google_Gemini-3.1_Flash_Lite-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
+[![JavaScript](https://img.shields.io/badge/ES2022-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
----
+<!-- Badges Row 2 -->
+[![Stars](https://img.shields.io/github/stars/abdulkalamazad1001/agentforge-cli?style=for-the-badge&color=6C63FF&logo=github)](https://github.com/abdulkalamazad1001/agentforge-cli)
+[![Forks](https://img.shields.io/github/forks/abdulkalamazad1001/agentforge-cli?style=for-the-badge&color=3B82F6&logo=github)](https://github.com/abdulkalamazad1001/agentforge-cli/fork)
+[![Issues](https://img.shields.io/github/issues/abdulkalamazad1001/agentforge-cli?style=for-the-badge&color=06B6D4&logo=github)](https://github.com/abdulkalamazad1001/agentforge-cli/issues)
 
-## ✨ What It Does
+<br/>
 
-AgentForge is a **conversational CLI tool** that works like a mini Cursor/Windsurf right in your terminal:
+<!-- Demo Video -->
+<a href="https://youtu.be/OMpFaIxf8e4">
+  <img src="https://img.shields.io/badge/▶_Watch_Demo-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=282828" alt="Watch Demo" />
+</a>
 
-1. **You type** a natural language instruction (e.g., *"Clone the Scaler Academy website"*)
-2. **The agent thinks** — breaks the task into steps, plans the approach
-3. **The agent acts** — creates files (HTML, CSS, JS) one at a time using tools
-4. **The agent delivers** — opens the finished website in your browser
+<br/><br/>
 
-The entire process is **visible in the terminal** with colored output, animated spinners, and step-by-step reasoning.
+> **One prompt. One agent. One complete website.**
+> 
+> AgentForge is a conversational CLI agent that autonomously **thinks, plans, and builds** production-quality websites — all from a single text prompt in your terminal.
 
----
+<br/>
 
-## 🏗️ Architecture
-
-```
-AgentForge CLI/
-├── index.js        # Main entry — interactive chat loop + agent reasoning
-├── prompts.js      # System prompt with Scaler design knowledge
-├── tools.js        # Tool definitions (createFile, createDirectory, openInBrowser)
-├── ui.js           # CLI display helpers (chalk, ora, boxen, gradients)
-├── package.json    # Dependencies and scripts
-├── .env            # Gemini API keys (not committed)
-├── .gitignore      # Ignores node_modules, .env, output/
-└── README.md       # This file
-```
+</div>
 
 ---
 
-## 🔄 How the Agent Loop Works
-
-The agent follows a **structured reasoning loop** inspired by ReAct (Reasoning + Acting):
+## 🎬 See It In Action
 
 ```
-┌─────────┐     ┌─────────┐     ┌─────────┐     ┌──────────┐     ┌─────────┐
-│  START   │ ──▶ │  THINK  │ ──▶ │  TOOL   │ ──▶ │ OBSERVE  │ ──▶ │ OUTPUT  │
-│          │     │ (×2-3)  │     │         │     │          │     │         │
-│ Understand│    │ Reason  │     │ Execute │     │ See result│    │ Deliver │
-│ the task │     │ & plan  │     │ action  │     │ & learn  │     │ to user │
-└─────────┘     └────┬────┘     └─────────┘     └────┬─────┘     └─────────┘
-                     │                                │
-                     └────────────────────────────────┘
-                              (loops back)
+  ▶ You: Clone the Scaler Academy website
+
+  🚀 [START] [Step 1] Understanding your request...
+     │  I will build a high-fidelity clone of the Scaler Academy website...
+
+  🧠 [THINK] [Step 2] Reasoning...
+     │  Let me plan the file structure. I'll need styles.css, index.html, script.js...
+
+  🔧 [TOOL] [Step 3] Executing action...
+     │  → createFile("output/styles.css") ✓ (6.4 KB)
+
+  🔧 [TOOL] [Step 5] Executing action...
+     │  → createFile("output/index.html") ✓ (8.2 KB)
+
+  🔧 [TOOL] [Step 7] Executing action...
+     │  → createFile("output/script.js") ✓ (3.1 KB)
+
+  🔧 [TOOL] [Step 9] Executing action...
+     │  → openInBrowser("output/index.html") ✓ Opened in browser
+
+  ╭──────────────────── OUTPUT ────────────────────╮
+  │  ✅ Task Complete!                              │
+  │  Built: Header, Hero, Highlights, Curriculum,   │
+  │  Footer — all responsive with animations.       │
+  ╰─────────────────────────────────────────────────╯
+
+  ╭──────────────── STATS ─────────────────╮
+  │  📊 Session Summary                    │
+  │  ⏱  Time Elapsed:   45.2s             │
+  │  🔄 Steps Taken:    12                 │
+  │  📁 Files Created:  3                  │
+  │     • output/styles.css (6.4 KB)       │
+  │     • output/index.html (8.2 KB)       │
+  │     • output/script.js (3.1 KB)        │
+  ╰────────────────────────────────────────╯
 ```
 
-**Step Types:**
-| Step | Purpose | Terminal Display |
-|:---|:---|:---|
-| 🚀 **START** | Acknowledge the user's request | Blue banner |
-| 🧠 **THINK** | Reason about what to do next | Cyan italic text |
-| 🔧 **TOOL** | Execute a file operation | Green with tool name |
-| 👁️ **OBSERVE** | See the tool's result | Amber result text |
-| ✅ **OUTPUT** | Final response to the user | Green boxed message |
+---
+
+## ✨ What Makes This Special
+
+<table>
+<tr>
+<td width="50%">
+
+### 🧠 ReAct Reasoning Loop
+The agent doesn't just generate code — it **thinks step by step**. Each response follows a structured `START → THINK → TOOL → OBSERVE → OUTPUT` loop, making every decision transparent and debuggable.
+
+</td>
+<td width="50%">
+
+### 🔁 Round-Robin Load Balancing
+Supports **multiple API keys** with automatic rotation. The agent cycles through your key pool on every request, maximizing throughput and minimizing rate limit hits.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 🛡️ Self-Healing Retry System
+**10 automatic retries** with exponential backoff (5s → 30s). The agent never crashes from rate limits — it patiently waits and retries with a visual progress indicator.
+
+</td>
+<td width="50%">
+
+### 📊 Real-Time Session Stats
+After every task, see a detailed summary: time elapsed, steps taken, files created with sizes. Know exactly what the agent built and how long it took.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 🎨 Stunning Terminal UI
+Gradient ASCII art, color-coded reasoning steps, animated spinners, boxed outputs — this isn't your average CLI tool. It's a visual experience.
+
+</td>
+<td width="50%">
+
+### 🔒 Safe by Design
+Only 3 whitelisted tools: `createFile`, `createDirectory`, `openInBrowser`. No shell access, no system commands. The agent can only create files in the `output/` folder.
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🏗️ System Architecture
+
+```
+                    ┌──────────────────────────────────────────────┐
+                    │              AgentForge CLI v2.0             │
+                    │         Built by Abdul Kalam Azad            │
+                    └──────────────────┬───────────────────────────┘
+                                       │
+                    ┌──────────────────▼───────────────────────────┐
+                    │             index.js (Agent Core)            │
+                    │                                              │
+                    │  ┌─────────────┐  ┌────────────────────┐    │
+                    │  │  Readline   │  │  Round-Robin Key    │    │
+                    │  │  Interface  │  │  Load Balancer      │    │
+                    │  └──────┬──────┘  └────────┬───────────┘    │
+                    │         │                  │                 │
+                    │  ┌──────▼──────────────────▼───────────┐    │
+                    │  │         ReAct Reasoning Loop         │    │
+                    │  │                                      │    │
+                    │  │  START ──▶ THINK ──▶ TOOL ──▶ OUTPUT │    │
+                    │  │              ▲         │             │    │
+                    │  │              └─ OBSERVE ┘             │    │
+                    │  └──────────────────┬──────────────────┘    │
+                    └─────────────────────┼───────────────────────┘
+                                          │
+              ┌───────────────────────────┼───────────────────────────┐
+              │                           │                           │
+    ┌─────────▼─────────┐    ┌───────────▼──────────┐    ┌──────────▼──────────┐
+    │    prompts.js      │    │      tools.js         │    │      ui.js          │
+    │                    │    │                       │    │                     │
+    │  System Prompt     │    │  createFile()         │    │  Welcome Banner     │
+    │  Scaler Design     │    │  createDirectory()    │    │  Step Display       │
+    │  Knowledge Base    │    │  openInBrowser()      │    │  Session Stats      │
+    │  Tool Descriptions │    │  executeTool()        │    │  Gradients/Spinners │
+    └────────────────────┘    └───────────────────────┘    └─────────────────────┘
+```
+
+---
+
+## 🔄 The ReAct Loop — How It Thinks
+
+```mermaid
+graph LR
+    A[👤 User Input] --> B[🚀 START]
+    B --> C[🧠 THINK]
+    C --> D[🔧 TOOL]
+    D --> E[👁️ OBSERVE]
+    E --> C
+    C --> F[✅ OUTPUT]
+    F --> G[📊 Stats]
+    
+    style A fill:#6C63FF,color:#fff,stroke:none
+    style B fill:#3B82F6,color:#fff,stroke:none
+    style C fill:#06B6D4,color:#fff,stroke:none
+    style D fill:#10B981,color:#fff,stroke:none
+    style E fill:#F59E0B,color:#fff,stroke:none
+    style F fill:#22C55E,color:#fff,stroke:none
+    style G fill:#38BDF8,color:#fff,stroke:none
+```
+
+| Step | Icon | Purpose | What You See |
+|:-----|:----:|:--------|:-------------|
+| **START** | 🚀 | Acknowledge & plan | Blue banner with task summary |
+| **THINK** | 🧠 | Reason about next action | Cyan italic reasoning text |
+| **TOOL** | 🔧 | Execute a file operation | Green tool name + arguments |
+| **OBSERVE** | 👁️ | Process tool result | Amber result feedback |
+| **OUTPUT** | ✅ | Deliver final result | Green boxed completion message |
+| **STATS** | 📊 | Show session metrics | Blue stats summary box |
 
 ---
 
 ## 🛠️ Available Tools
 
-The agent has access to **3 purpose-built tools** for safe file operations:
+The agent has access to **3 purpose-built, safe tools**:
 
-| Tool | Description |
-|:---|:---|
-| `createFile(filePath, content)` | Creates a file with the given content |
-| `createDirectory(dirPath)` | Creates a directory (nested support) |
-| `openInBrowser(filePath)` | Opens the HTML file in the default browser |
+```javascript
+// 📄 Create a file with content
+createFile("output/index.html", "<html>...</html>")
+// → "File created successfully: output/index.html (8.2 KB)"
 
-> 💡 **Design Decision**: Instead of giving the agent a generic `executeCommand` tool (which could run anything), we provide **specific, safe tools**. This makes the agent more reliable and prevents accidental damage.
+// 📁 Create a directory
+createDirectory("output/assets")
+// → "Directory created successfully: output/assets"
 
----
+// 🌐 Open in browser
+openInBrowser("output/index.html")
+// → "Opened output/index.html in the default browser successfully"
+```
 
-## ⚡ Resilience Features
-
-AgentForge is built for **100% uptime** with production-grade reliability:
-
-### 🔁 Round-Robin API Key Pool
-- Supports **multiple Gemini API keys** via a comma-separated `GEMINI_API_KEYS` env var
-- Cycles through keys on every request to distribute load across quota buckets
-- Each key gets its own fresh `GoogleGenerativeAI` client instance
-
-### 🛡️ Intelligent Auto-Retry with Exponential Backoff
-- **10 automatic retries** on rate limit errors (429 / quota exceeded)
-- Exponential backoff: 5s → 10s → 15s → 20s → 25s → 30s (capped)
-- The agent **never crashes** from rate limits — it waits patiently and retries
-- Auth errors (invalid key) fail fast immediately — no wasted retries
-
-### 💬 Global Conversation History
-- Chat history is maintained independently from API key rotation
-- Context is seamlessly carried across key switches via deep-cloned history injection
+> 💡 **Why only 3 tools?** Instead of giving the agent a dangerous `executeCommand` tool that could run anything, we provide **specific, safe tools**. This makes the agent reliable and prevents accidental system damage.
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Node.js** 18 or higher
-- A **Google Gemini API key** from [Google AI Studio](https://aistudio.google.com/apikey)
 
-### Setup
+| Requirement | Version |
+|:------------|:--------|
+| **Node.js** | 18+ |
+| **npm** | 9+ |
+| **Gemini API Key** | [Get one free →](https://aistudio.google.com/apikey) |
+
+### Installation
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/agentforge-cli.git
+# Clone the repository
+git clone https://github.com/abdulkalamazad1001/agentforge-cli.git
+
+# Navigate to the project
 cd agentforge-cli
 
-# 2. Install dependencies
+# Install dependencies
 npm install
 
-# 3. Set your Gemini API key(s)
-# Single key:
+# Configure your API key(s)
 echo "GEMINI_API_KEYS=your-key-here" > .env
 
-# Multiple keys (for Round-Robin load balancing):
+# For multiple keys (Round-Robin load balancing):
 echo "GEMINI_API_KEYS=key1,key2,key3" > .env
 
-# 4. Run the agent
+# Launch AgentForge
 npm start
 ```
 
-### Usage
+### CLI Commands
 
-Once running, type your instruction:
-
-```
-▶ You: Clone the Scaler Academy website
-```
-
-The agent will:
-1. Plan the website structure
-2. Create `output/styles.css` with all Scaler styling
-3. Create `output/index.html` with Header, Hero, and Footer
-4. Create `output/script.js` for interactivity
-5. Open the result in your browser
+| Command | Action |
+|:--------|:-------|
+| `Clone the Scaler Academy website` | Build a full website clone |
+| `Build a portfolio with dark mode` | Create a custom website |
+| `help` | Show available commands |
+| `clear` | Clear the terminal |
+| `exit` / `quit` / `q` | Exit AgentForge |
 
 ---
 
 ## 🎨 Generated Website Features
 
-The cloned Scaler Academy website includes:
+When asked to clone the Scaler Academy website, the agent generates:
 
-- **📌 Top Contact Bar** — Dark gradient with phone number and CTA
-- **🧭 Sticky Header** — White navbar with SCALER ACADEMY logo and navigation
-- **🦸 Hero Section** — Dark gradient with floating orbs, course info, and counselling form
-- **📋 Course Overview** — 3 informational cards about the program
-- **⭐ Key Highlights** — 6 colorful feature cards (blue, pink, green, purple, orange)
-- **💼 Talk to Advisor** — Dark CTA section with benefits
-- **📚 Curriculum** — Tabbed module list (Beginner / Intermediate / Advanced)
-- **🔗 Footer** — Dark footer with links, socials, and copyright
+| Section | Features |
+|:--------|:---------|
+| 📌 **Top Contact Bar** | Dark gradient with phone number and CTA |
+| 🧭 **Sticky Header** | White navbar with logo, nav links, mobile hamburger |
+| 🦸 **Hero Section** | Animated gradient, floating orbs, glassmorphic form |
+| 📋 **Course Overview** | 3 informational cards with shadow effects |
+| ⭐ **Key Highlights** | 6 colorful animated cards with hover effects |
+| 💼 **Advisor CTA** | Dark section with benefits checklist |
+| 📚 **Curriculum** | Interactive tab switcher (Beginner/Intermediate/Advanced) |
+| 🔗 **Footer** | Dark footer with links, socials, copyright |
 
-**Design Quality:**
-- Responsive (mobile + desktop)
-- CSS animations (floating orbs, fade-in, hover effects)
-- Google Fonts (Inter)
-- Pixel-perfect color matching
+**Design Quality:** Responsive • CSS Animations • Google Fonts • Pixel-perfect colors
 
 ---
 
 ## 🧰 Tech Stack
 
-| Technology | Purpose |
-|:---|:---|
-| **Node.js** | Runtime environment |
-| **Google Gemini 3.1 Flash Lite** | AI reasoning engine |
-| **@google/generative-ai** | Official Gemini SDK |
-| **chalk** | Colored terminal text |
-| **ora** | Animated loading spinners |
-| **boxen** | Boxed terminal messages |
-| **gradient-string** | Gradient text effects |
-| **dotenv** | Environment variable management |
-| **node-fetch** | Robust HTTP fetch for API calls |
+<div align="center">
+
+| Technology | Purpose | Why |
+|:-----------|:--------|:----|
+| <img src="https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white&style=flat-square" /> | Runtime | Fast, async, perfect for CLI tools |
+| <img src="https://img.shields.io/badge/-Gemini_3.1-4285F4?logo=google&logoColor=white&style=flat-square" /> | AI Engine | Latest reasoning model with free tier |
+| <img src="https://img.shields.io/badge/-chalk-F7DF1E?logoColor=black&style=flat-square" /> | Terminal Colors | Rich, 256-color terminal output |
+| <img src="https://img.shields.io/badge/-ora-06B6D4?logoColor=white&style=flat-square" /> | Spinners | Smooth animated loading indicators |
+| <img src="https://img.shields.io/badge/-boxen-A78BFA?logoColor=white&style=flat-square" /> | Boxes | Styled terminal boxes for output |
+| <img src="https://img.shields.io/badge/-gradient_string-6C63FF?logoColor=white&style=flat-square" /> | Gradients | Multi-color gradient text effects |
+| <img src="https://img.shields.io/badge/-dotenv-ECD53F?logoColor=black&style=flat-square" /> | Config | Secure environment variable management |
+
+</div>
 
 ---
 
-## 📁 Project Structure Explanation
+## 📁 Project Structure
 
-| File | Lines | Purpose |
-|:---|:---:|:---|
-| `index.js` | ~350 | Main agent loop, Round-Robin key pool, auto-retry, JSON parsing, step handling |
-| `prompts.js` | ~170 | System prompt with Scaler design knowledge and tool descriptions |
-| `tools.js` | ~150 | File operation tools (createFile, createDirectory, openInBrowser) |
-| `ui.js` | ~270 | Terminal display helpers (colors, spinners, boxes, formatting) |
+```
+AgentForge CLI/
+│
+├── 📄 index.js          # Agent core — ReAct loop, Round-Robin balancer, retry logic
+│                         # ~400 lines │ @author Abdul Kalam Azad
+│
+├── 📄 prompts.js         # System prompt — Scaler design knowledge, tool descriptions
+│                         # ~180 lines │ @author Abdul Kalam Azad
+│
+├── 📄 tools.js           # Safe toolset — createFile, createDirectory, openInBrowser
+│                         # ~190 lines │ @author Abdul Kalam Azad
+│
+├── 📄 ui.js              # Terminal UI — gradients, spinners, stats, step display
+│                         # ~380 lines │ @author Abdul Kalam Azad
+│
+├── 📄 package.json       # Dependencies and scripts
+├── 📄 .env               # API keys (git-ignored)
+├── 📄 .gitignore          # Excludes .env, node_modules, output/
+└── 📄 README.md          # You are here
+```
+
+---
+
+## ⚡ Resilience Engineering
+
+<details>
+<summary><b>🔁 Round-Robin API Key Pool</b> — Click to expand</summary>
+<br/>
+
+```javascript
+// Supports N keys via comma-separated env var
+const apiKeys = process.env.GEMINI_API_KEYS.split(",");
+let currentKeyIndex = 0;
+
+// Every API call rotates to the next key
+const activeKey = apiKeys[currentKeyIndex];
+currentKeyIndex = (currentKeyIndex + 1) % apiKeys.length;
+```
+
+- Each key gets its own `GoogleGenerativeAI` client instance
+- Global conversation history persists across key switches
+- Zero context loss during rotation
+
+</details>
+
+<details>
+<summary><b>🛡️ Exponential Backoff Retry</b> — Click to expand</summary>
+<br/>
+
+```
+Attempt 1  → Wait  5s  [█░░░░░░░░░]
+Attempt 2  → Wait 10s  [██░░░░░░░░]
+Attempt 3  → Wait 15s  [███░░░░░░░]
+Attempt 4  → Wait 20s  [████░░░░░░]
+Attempt 5  → Wait 25s  [█████░░░░░]
+Attempt 6+ → Wait 30s  [██████░░░░]  (capped)
+```
+
+- **10 retries** cover a full ~2.5 minute rate limit window
+- Auth errors (401/403) fail fast — no wasted retries
+- Visual progress bar shown to user during waits
+
+</details>
+
+<details>
+<summary><b>🧠 JSON Recovery Parser</b> — Click to expand</summary>
+<br/>
+
+LLMs sometimes return malformed JSON. Our 4-strategy parser handles it all:
+
+1. **Direct parse** — Try `JSON.parse()` first
+2. **Code block extraction** — Strip ````json` wrappers
+3. **Regex extraction** — Find `{...}` blocks in mixed text
+4. **Auto-fix** — Remove trailing commas, fix quote types
+
+</details>
 
 ---
 
 ## 🎬 Demo
 
-> A 2-3 minute YouTube demo showing the CLI agent running live and the final output opening in the browser.
->
-> **[Watch the Demo →](https://youtu.be/OMpFaIxf8e4)**
+<div align="center">
+
+[![Watch the Demo](https://img.shields.io/badge/▶_Watch_Full_Demo_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=282828)](https://youtu.be/OMpFaIxf8e4)
+
+*2-3 minute walkthrough showing the agent running live and the generated website*
+
+</div>
 
 ---
 
 ## 📝 License
 
-MIT License — feel free to use, modify, and share.
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-<p align="center">
-  Built with ❤️ for <strong>Scaler Academy</strong> • <strong>Powered by Abdul Kalam</strong>
-</p>
+<div align="center">
+
+<br/>
+
+**Built with ❤️ by Abdul Kalam Azad**
+
+*For Scaler Academy — GenAI Assignment*
+
+<br/>
+
+[![GitHub](https://img.shields.io/badge/Abdul_Kalam_Azad-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/abdulkalamazad1001)
+
+<br/>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,50:3B82F6,100:06B6D4&height=120&section=footer" width="100%" />
+
+</div>
